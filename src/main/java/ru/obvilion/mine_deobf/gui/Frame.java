@@ -62,6 +62,12 @@ public class Frame extends JFrame {
             new Thread(() -> {
                 start.setEnabled(false);
 
+                if (Vars.SELECTED_FILE == null || !Vars.SELECTED_FILE.exists()) {
+                    System.out.println("File or sources dir is not selected!");
+                    start.setEnabled(true);
+                    return;
+                }
+
                 System.out.println("Started decompiler...");
                 System.out.println("Selected " + Vars.SELECTED_VERSION + " minecraft version");
 
