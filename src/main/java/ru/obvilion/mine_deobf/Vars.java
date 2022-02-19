@@ -18,4 +18,8 @@ public class Vars {
 
     public static String SELECTED_ENCODING = null;
     public static String SELECTED_VERSION = "1.7.10";
+
+    public static final File USER_HOME = new File(System.getProperty("user.home"));
+    public static final File LAUNCHER_HOME = new File(USER_HOME, ".ObvilionNetwork");
+    public static final File CONFIG_FILE = new File(LAUNCHER_HOME, "mc-decomp.properties");
 }

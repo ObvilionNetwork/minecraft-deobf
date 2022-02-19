@@ -2,6 +2,7 @@ package ru.obvilion.mine_deobf;
 
 import ru.obvilion.mine_deobf.gui.Frame;
 import ru.obvilion.mine_deobf.utils.DualStream;
+import ru.obvilion.mine_deobf.utils.Loader;
 
 import java.io.IOException;
 
@@ -9,6 +10,8 @@ public class LauncherWrapper {
 
     public static void main(String[] args) throws IOException {
         update_out();
+
+        Loader.onLaunch();
 
         Vars.FRAME = new Frame();
         Vars.FRAME.setVisible(true);

@@ -4,6 +4,7 @@ import ru.obvilion.mine_deobf.Decompiler;
 import ru.obvilion.mine_deobf.Deobfuscator;
 import ru.obvilion.mine_deobf.Vars;
 import ru.obvilion.mine_deobf.utils.DualStream;
+import ru.obvilion.mine_deobf.utils.Loader;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -40,6 +41,10 @@ public class Frame extends JFrame {
 
         setLocationRelativeTo(null);
 
+        if (Vars.SELECTED_FILE != null) file_path.setText(Vars.SELECTED_FILE.getPath());
+        if (Vars.SELECTED_VERSION != null) version_selector.setSelectedItem(Vars.SELECTED_VERSION);
+        if (Vars.SELECTED_ENCODING != null) encoding_selector.setSelectedItem(Vars.SELECTED_ENCODING);
+
         select_file.setBounds(360,5,100,25);
         file_path.setBounds(15, 5, 337, 26);
         start.setBounds(15, 360, 180, 30);
@@ -72,6 +77,9 @@ public class Frame extends JFrame {
                     start.setEnabled(true);
                     return;
                 }
+
+                System.out.println("Saving configuration...");
+                Loader.onSave();
 
                 System.out.println("Started decompiler...");
                 System.out.println("Selected " + Vars.SELECTED_VERSION + " minecraft version");
