@@ -16,5 +16,6 @@ public class Vars {
     public static File DECOMP_DIR = null;
     public static File DEOBF_DIR = null;
 
+    public static String SELECTED_ENCODING = null;
     public static String SELECTED_VERSION = "1.7.10";
 }

@@ -9,14 +9,14 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Frame extends JFrame {
-    String[] versions = {
-        "1.7.10",
-    };
+    String[] encodings = { "Default", "utf-8", "us-ascii", "windows-1250", "windows-1252", "koi8-r", "shift_jis", "iso-2022-jp", "euc-jp" };
+    String[] versions = { "1.7.10" };
 
     public JButton select_file = new JButton("Select file...");
     public JButton start = new JButton("Decompile sources");
     public JTextField file_path = new JTextField("Path to file...");
-    public JComboBox selector = new JComboBox(versions);
+    public JComboBox encoding_selector = new JComboBox(encodings);
+    public JComboBox version_selector = new JComboBox(versions);
     public JTextArea logs = new JTextArea("[Main thread] Welcome to Oblivion Decompiler!");
     public JScrollPane logs_pane = new JScrollPane(logs);
 
@@ -39,11 +39,12 @@ public class Frame extends JFrame {
 
         setLocationRelativeTo(null);
 
-        select_file.setBounds(450,5,100,25);
-        file_path.setBounds(15, 5, 417, 26);
+        select_file.setBounds(360,5,100,25);
+        file_path.setBounds(15, 5, 337, 26);
         start.setBounds(15, 360, 180, 30);
         logs_pane.setBounds(15, 40, 655, 305);
-        selector.setBounds(568, 5, 100, 25);
+        encoding_selector.setBounds(470, 5, 100, 25);
+        version_selector.setBounds(578, 5, 90, 25);
         logs.setEditable(false);
 
         chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
@@ -59,6 +60,8 @@ public class Frame extends JFrame {
         });
         start.addActionListener(e -> {
             new Thread(() -> {
+                start.setEnabled(false);
+
                 System.out.println("Started decompiler...");
                 System.out.println("Selected " + Vars.SELECTED_VERSION + " minecraft version");
 
@@ -95,11 +98,25 @@ public class Frame extends JFrame {
                 System.out.println("Thanks for using \"Oblivion Forge mods decompiler\" software :З");
                 System.out.println("Discord support server: https://discord.gg/cg82mjh");
 
+                start.setEnabled(true);
+
                 Thread.currentThread().interrupt();
             }).start();
         });
 
-        add(selector);
+        encoding_selector.addActionListener(e -> {
+            String sel = (String) encoding_selector.getSelectedItem();
+
+            if (sel.equals("Default")) {
+                Vars.SELECTED_ENCODING = null;
+                return;
+            }
+
+            Vars.SELECTED_ENCODING = sel;
+        });
+
+        add(encoding_selector);
+        add(version_selector);
         add(select_file);
         add(file_path);
         add(start);

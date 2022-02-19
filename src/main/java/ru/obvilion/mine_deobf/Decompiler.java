@@ -9,6 +9,10 @@ public class Decompiler {
         Vars.DECOMP_DIR = new File(Vars.SELECTED_FILE.getParentFile(), "decompiled-sources");
         Vars.DECOMP_DIR.mkdir();
 
-        Main.main(new String[]{ Vars.SELECTED_FILE.getPath(), "--outputdir", Vars.DECOMP_DIR.getPath(), "--outputencoding", "utf-8" });
+        if (Vars.SELECTED_ENCODING == null) {
+            Main.main(new String[]{ Vars.SELECTED_FILE.getPath(), "--outputdir", Vars.DECOMP_DIR.getPath() });
+        } else {
+            Main.main(new String[]{ Vars.SELECTED_FILE.getPath(), "--outputdir", Vars.DECOMP_DIR.getPath(), "--outputencoding", Vars.SELECTED_ENCODING });
+        }
     }
 }
