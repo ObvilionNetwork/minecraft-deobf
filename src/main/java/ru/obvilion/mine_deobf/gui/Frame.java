@@ -4,11 +4,13 @@ import ru.obvilion.mine_deobf.Decompiler;
 import ru.obvilion.mine_deobf.Deobfuscator;
 import ru.obvilion.mine_deobf.Vars;
 import ru.obvilion.mine_deobf.utils.DualStream;
+import ru.obvilion.mine_deobf.utils.FileUtil;
 import ru.obvilion.mine_deobf.utils.Loader;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
+import java.io.File;
 
 public class Frame extends JFrame {
     String[] encodings = { "Default", "utf-8", "us-ascii", "windows-1250", "windows-1252", "koi8-r", "shift_jis", "iso-2022-jp", "euc-jp" };
@@ -78,6 +80,8 @@ public class Frame extends JFrame {
                     return;
                 }
 
+                Vars.SELECTED_FILE_NAME = Vars.SELECTED_FILE.getName().replaceFirst("[.][^.]+$", "");
+
                 System.out.println("Saving configuration...");
                 Loader.onSave();
 
@@ -104,6 +108,12 @@ public class Frame extends JFrame {
                 System.out.println("Deobfuscator started...");
                 Deobfuscator.deobfuscate();
                 System.out.println("Deobfuscator work ended!");
+
+                DualStream.prefix = "[Resources] ";
+
+                System.out.println("Copying resources...");
+                FileUtil.copyResources(Vars.SELECTED_FILE, new File(Vars.DEOBF_DIR.getParentFile(), "resources"));
+                System.out.println("Copying resources ended!");
 
                 DualStream.prefix = "[Main thread] ";
 

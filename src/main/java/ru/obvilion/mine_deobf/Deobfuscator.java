@@ -46,7 +46,7 @@ public class Deobfuscator {
             File file = Vars.DECOMP_DIR == null ? Vars.SELECTED_FILE : Vars.DECOMP_DIR;
 
             String main_path = file.getPath();
-            File out_dir = new File(file.getParentFile(), "deobfuscated-sources");
+            File out_dir = new File(file.getParentFile().getParentFile(), "deobfuscated-sources/" + Vars.SELECTED_FILE_NAME + "/java");
             Vars.DEOBF_DIR = out_dir;
 
             Files.find(file.toPath(),
