@@ -6,6 +6,7 @@ import ru.obvilion.mine_deobf.Vars;
 import ru.obvilion.mine_deobf.utils.DualStream;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 
 public class Frame extends JFrame {
@@ -50,6 +51,10 @@ public class Frame extends JFrame {
         chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 
         select_file.addActionListener(e -> {
+            FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                    "Jar library or directory", "jar");
+
+            chooser.setFileFilter(filter);
             int ret = chooser.showDialog(null, "Open .jar file or directory");
             if (ret == JFileChooser.APPROVE_OPTION) {
                 Vars.SELECTED_FILE = chooser.getSelectedFile();
